@@ -1,18 +1,6 @@
 FROM debian:buster
-RUN apt-get update \
-        && apt-get -y install apt-utils mariadb-server mariadb-client \
-        && rm -rf /var/lib/mysql \
-        && mkdir -p /var/lib/mysql /run/mysqld \
-        && chown -R mysql:mysql /var/lib/mysql  /run/mysqld \
-        && chmod 777 /var/run/mysqld\
-		&&  apt-get -y install emacs
+RUN apt-get update && apt-get install -y mariadb-server
 
-VOLUME /var/lib/mysql
-
-#COPY ./tools/entrypoint.sh ./
-#COPY ./dump.sql ./
-#
-#
-RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
-EXPOSE 3306
-ENTRYPOINT ["mysqld"]
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./tools/entrypoint.sh /
+CMD ["/entrypoint.sh"]
