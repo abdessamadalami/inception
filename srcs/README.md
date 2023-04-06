@@ -1,61 +1,53 @@
-# inception
 version: '3'
+
+networks:
+  net:
+
 services:
   mariadb:
-    image: mariadb
-    container_name: mariadb
+    build: ./requirements/mariadb
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    env_file:
+      - .env
     networks:
-      - inception
-    build:
-      context: requirements/mariadb
-      dockerfile: Dockerfile
-    env_file: .env
-    restart: on-failure
-    expose:
-      - "3306"
-  #nginx:
-  #  container_name: nginx
-  #  volumes:
-  #    - wordpress:/var/www/wordpress
-  #  networks:
-  #    - inception_Mandatory
-  #  depends_on:        			 
-  #    - wordpress
-  #  build: 
-  #  context: requirements/nginx
-  #  dockerfile: Dockerfile
-  #  env_file: .env
-  #  ports:
-  #    - "443:443" 		
-  #  restart: on-failure
-  #wordpress:
-  #  container_name: wordpress
-  #  env_file: .env
-  #  volumes:
-  #  - wordpress:/var/www/wordpress
-  #  networks:
-  #  - inception_Mandatory
-  #  build: 
-  #  context: requirements/wordpress
-  #  dockerfile: Dockerfile
-  #  depends_on:    					
-  #  - mariadb
-  #  restart: on-failure
-  #  expose: 
-  #  - "9000"
-  #volumes:
-  #  wordpress:
-  #   driver: local
-  #   driver_opts:
-  #   type: 'none' 								
-  #   o: 'bind'
-  #  device: '/Users/ael-oual/data/wordpress' 		
-  #  mariadb:
-  #    driver: local
-  #    driver_opts:
-  #    type: 'none' 
-  #    o: 'bind'										
-  #    device: '/Users/ael-oual/data/mariadb'
-  networks:
-    inception:
-      name: inception
+      - net
+    restart: always
+
+  wordpress:
+    build: ./requirements/wordpress/
+    volumes:
+      - wordpress_data:/var/www/html
+    networks:
+      - net
+    depends_on:
+      - mariadb
+    env_file:
+      - .env
+    links:
+      - mariadb
+
+  nginx:
+    build: ./requirements/nginx
+    volumes:
+      - wordpress_data:/var/www/html
+    ports:
+      - 443:443
+    networks:
+      - net
+    depends_on:
+      - wordpress
+      
+volumes:
+   wordpress_data:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /home/inception/data/wordpress
+   mariadb_data:
+      driver: local
+      driver_opts:
+         type: none
+         o: bind
+         device: /home/inception/data/mysql
