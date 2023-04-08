@@ -2,4 +2,4 @@
 
 docker system prune
 rm -rf ~/data/wordpress/*
-rm -rf ~/data/mariadb/d/* 
+rm -rf ~/data/mariadb/* 

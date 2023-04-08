@@ -1,7 +1,13 @@
-#!/bin/sh
-service mysql start
-mysql -u root -e "CREATE DATABASE IF NOT EXISTS alami ;"
-mysql -u root -e "CREATE USER IF NOT EXISTS alami@'localhost' IDENTIFIED BY 'alami';"
-mysql -u root -e "ALTER USER alami@'localhost' IDENTIFIED BY 'alami' ;"
-#more test about the new password 
-service  mysql restart
+#!bin/bash
+service mysql start;
+echo "CREATE DATABASE IF NOT EXISTS wordpress ;" > s.sql;
+#echo "CREATE USER IF NOT EXISTS '$USER'@'localhost' IDENTIFIED BY '$PASSWORD';" >> s.sql;
+mysql < s.sql ;
+#mysql -e "GRANT ALL PRIVILEGES ON '$DBNAME'.* TO '$USER'@'%';"
+#mysql -u root -p -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'alami1234' ;"
+#mysql -e "FLUSH PRIVILEGES;"
+#kill $(cat /var/run/mysqld/mysqld.pid)
+service mysql stop;
+
+
+mysqld
