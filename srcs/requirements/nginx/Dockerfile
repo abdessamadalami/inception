@@ -10,6 +10,6 @@ RUN apt-get  install openssl && \
     -newkey rsa:2048\
     -out /etc/nginx/ssl/vbachele.crt\
     -keyout /etc/nginx/ssl/vbachele.key \
- -subj "/C=US/ST=Utah/L=Lehi/O=Your Company, Inc./OU=IT/CN=yourdomain.com"
+ -subj "/C=US/ST=Utah/L=Lehi/O=Your Company, Inc./OU=IT/CN=ael-oual.42.fr"
 EXPOSE 443
 CMD ["nginx", "-g" ,"daemon off;"]
