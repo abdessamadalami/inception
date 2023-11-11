@@ -1,1 +1,6 @@
-dff
+💻 **A virtual machine** is a software-based emulation of a physical computer that enables multiple operating systems to run on a single physical machine. It creates a virtual environment that can be isolated from the host system, allowing for greater flexibility and security. Virtual machines are often used for testing, development, and running legacy applications that may not be compatible with modern operating systems. They also make it easier to manage multiple environments and configurations on a single physical machine. Overall, virtual machines provide a powerful tool for organizations and individuals to maximize their computing resources and streamline their workflows.
+
+🎁  **Containerization** is a method of operating system virtualization that allows multiple applications to run on a single host machine without interfering with one another. Each ***application runs in its own isolated environment,*** or container, which includes all necessary dependencies and libraries. Containers are lightweight, portable, and can be easily moved between different environments, making it easier to develop, test, and deploy applications in complex environments. Docker is a popular platform for containerization that allows developers to easily create, deploy, and manage containerized applications.....
+for more:
+
+https://ael-oual.notion.site/Inception-a5b53965a5b2441c848a8b33e00ccde8?pvs=4
